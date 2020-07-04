@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang = "en">
+
+<head>
+     
+	<meta charset = "utf-8">
+	<title>Contact Us</title>
+</head>
+
+<body>
+
+    <center>
+    <h2>Contact us</h2>
+    </center>
+
+    <center>
+    <table border = "9" width = "70%">
+    <tr>
+    <th>Email:</th>
+    <td><a href = "speedybus@gmail.com">speedybus@gmail.com</a></td>
+    </tr>
+
+    <tr>
+    <th rowspan = "2">Phone:</th>
+    <td>123-45-678</td>
+    </tr>
+
+    <td>212-00-546</td>
+    </tr>
+
+    <tr>
+    <th>Address:</th>
+    <td>Level 25, Menara Worldwide 198 Jalan Bukit Bintang, 55100 Kuala Lumpur, Malaysia</td>
+	
+	<tr>
+	<th>Facebook</th>
+	<td><a href = "www.facebook.com">www.facebook.com</a></td>
+	</tr>
+	
+	<tr>
+	<th>Instagram</th>
+	<td><a href = "www.instagram.com">www.instagram.com</a></td>
+	</tr>
+	
+	<tr>
+	<th>Twitter</th>
+	<td><a href = "www.twitter.com">www.twitter.com</a></td>
+	</tr>
+    </table>
+    </center>
+
+    <br>
+
+    <hr>
+
+    <p>Speedy Bus Ticket Booking Website would like to hear from you as for feedback is valuable to us for further improvement and to provide better service. 
+	   Kindly fill up the details below and we will answer your queries as soon as possible. Thank you.</p>
+
+    <form action="contact.php">
+    <fieldset>
+    <legend><h3>Personalia:</h3></legend>
+    <label for="fname">First name:</label>
+    <input type="text" id="fname" name="fname">
+  
+    <label for="lname">Last name:</label>
+    <input type="text" id="lname" name="lname"><br><br>
+  
+    <label for="gender">Gender:</label>
+    <input type="radio" id="male" name="gender">
+    <label for="male">Male</lable>
+    <input type="radio" id="female" name="gender">
+    <label for="male">Female</lable><br><br>
+  
+    <label for="phone">Phone number:</label>
+    <input type="tel" id="phone" name="phone" placeholder="012-3456789" pattern="[0-9]{3}-[0-9]{7}"><br><br>
+  
+    <label for="email">Email:</label>
+    <input type="email" id="email" name="email"><br><br>
+    </fieldset>
+  
+    <br>
+  
+    <fieldset>
+    <legend><h3>Feedback:</h3></legend>
+    <label for = "feedback">Tell us your feedback and comment:</label><br><br>
+    <textarea id = "feedback" name = "feedback" rows="9" cols="50" placeholder = "Write Something..."></textarea><br><br>
+  
+    <input type="submit" value="Submit">
+
+</form>
+
+</body>
+</html>
