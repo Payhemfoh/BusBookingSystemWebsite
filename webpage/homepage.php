@@ -71,7 +71,7 @@
                     }
                     else{
                         //print the form selected by the user
-                        echo "<form id=\"form\" action=\"homepage.php\" method=\"post\">
+                        echo "<form id=\"form\" action=\"chooseBus.php\" method=\"post\">
                                 <br><br>
                                 <table>";
                         
