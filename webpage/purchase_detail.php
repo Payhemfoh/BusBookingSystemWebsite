@@ -1,21 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>purchase details</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" type="text/css" href="../scripts/style.css">
-        <script src="../scripts/slider.js"></script>
+        <title>Speedy Bus | purchase details</title>
+        <?php include("../webpage/headinclude.html");?>
     </head>
 
     <body id="main">
-        <div id="header">
-            <ul id="nav-bar" type="none">
-                <li><a href="homepage.html" class="header-typeA"><p>Company Logo</p></a></li>
-                <li><a href="buy_ticket.html" class="header-typeA"><p>Buy Tickets</p></a></li>
-                <li><a href="#" class="header-typeB"><p>Sign Up/Register</p></a></li>
-                <li><a href="#" class="header-typeB"><p>Cart</p></a></li>
-            </ul>
-        </div>
+        <?php 
+            include('../webpage/webpageSetting.php');
+            include('../scripts/commonFunction.php');
+            include("../webpage/header.php"); 
+        ?>
 
         <div id="content">
             <h2>Purchase History Details</h3>
@@ -93,23 +88,8 @@
             </table>
         </div>
 
-        <footer>
-            <div class="footer-left">
-                <h2>Pages</h2>
-                <p>Contact Us</p>
-                <p>About Us</p>
-                <p>Promotion</p>
-                <p>FAQ</p>
-            </div>
-
-            <div class="footer-bar">
-            </div>
-            <div class="footer-right">
-                <h2>Follow Us</h2>
-                <p>Facebook</p>
-                <p>Instagram</p>
-                <p>Twitter</p>
-            </div>
-        </footer>
+        <?php
+            include("../webpage/footer.html");
+        ?>
     </body>
 </html>
