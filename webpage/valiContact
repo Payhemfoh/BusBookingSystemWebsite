@@ -10,12 +10,12 @@
 	
 		if(empty($email)){ 
 			echo "<p>Email cannot be empty.</p>";
-			error=true;
+			$error=true;
 		}
 		
 		if(empty($first_name)){ 
 			echo "<p>First name cannot be empty.</p>";
-			error=true;
+			$error=true;
 		}
 		else{
 			if(!(ctype_alphabet($first_name))){ 
@@ -26,7 +26,7 @@
 		
 		if(empty($last_name)){ 
 			echo "<p>Last name cannot be empty.</p>";
-			error=true;
+			$error=true;
 		}
 		else{
 			if(!(ctype_alphabet($last_name))){ 
