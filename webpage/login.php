@@ -20,7 +20,7 @@
                 <?php
                     if(!empty($uname)){
                         echo "<li><a href=\"../webpage/login.php\" class=\"header-typeB\"><p>Hi $uname</p></a></li>";
-                        echo "<li><a href=\"#\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
+                        echo "<li><a href=\"../webpage/purchase_history.php\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
                     }else{
                         echo "<li><a href=\"../webpage/register.php\" class=\"header-typeB\"><p>Register</p></a></li>";
                     }
@@ -81,48 +81,46 @@
                         //If every valid is true, show a success message
                         if($fill){
 
-                            if(!$db = mysqli_connect('localhost','root','')){
-                                die('Could not connect: '.mysqli.error($db));
-                            }
-                
-                            //select database
-                            $selectDatabase=mysqli_select_db($db,'bus_system');
-                
-                            $querySQL="SELECT * FROM user WHERE username=='$username' and password =='$password'";
-                            $result= mysqli_query($db,$querySQL);
-                            
-                            //equals 1 if user found
-                            if(mysqli_num_rows($result)==1){
-                
-                                //store username
-                                $_SESSION['uname'] = $username;
-                                //store login time
-                                date_default_timezone_set("Asia/Kuala_Lumpur");
-                                $_SESSION['loginTime'] = date("y-m-d : h:m:sA");
+                            if($db = mysqli_connect('localhost','root','')){
+                                if(mysqli_select_db($db,'bus_system')){
+                                    $querySQL="SELECT * FROM user WHERE username=='$username' and password =='$password'";
+                                    $result= mysqli_query($db,$querySQL);
+                                    
+                                    //equals 1 if user found
+                                    if(mysqli_num_rows($result)==1){
+                        
+                                        //store username
+                                        $_SESSION['uname'] = $username;
+                                        //store login time
+                                        date_default_timezone_set("Asia/Kuala_Lumpur");
+                                        $_SESSION['loginTime'] = date("y-m-d : h:m:sA");
 
-                                if(isset($_POST['remember'])){
-                                    setcookie("rememberUsername",$uname);
-                                    setcookie("rememberPassword",$pwd);
-                                    setcookie("remember",true);
+                                        if(isset($_POST['remember'])){
+                                            setcookie("rememberUsername",$uname);
+                                            setcookie("rememberPassword",$pwd);
+                                            setcookie("remember",true);
+                                        }else{
+                                            setcookie("rememberUsername","");
+                                            setcookie("rememberPassword","");
+                                            setcookie("remember","");
+                                        }
+                                        echo "<center>";
+                                        print "Hi,$username,You have been login successfully since ".date("y-m-d : h:m:sA");
+                                        echo "</center>";
+                                        returnToHomepage();
+                                    }
+                        
+                                    else{
+                                        echo"<p> User Not Found, please sign up</p>";
+                                    }
                                 }else{
-                                    setcookie("rememberUsername","");
-                                    setcookie("rememberPassword","");
-                                    setcookie("remember","");
+                                    die('Could not connect: '.mysqli_error($db));
                                 }
-                                echo "<center>";
-                                print "Hi,$username,You have been login successfully since ".date("y-m-d : h:m:sA");
-                                echo "</center>";
-                                returnToHomepage();
+                                //close connection
+                                mysqli_close($db);
+                            }else{
+                                die('Could not connect: '.mysqli_error($db));
                             }
-                
-                            else{
-                                echo"<p> User Not Found, please sign up</p>";
-                            
-                            }
-                
-                            //close connection
-                            mysqli_close($login);
-
                         }
                     }
                     else{
