@@ -152,16 +152,8 @@
                         }
 
                         echo "</table>
-                                <br><br>
+                                <br>
                                     <input type=\"submit\" value=\"search\">
-                                    <br><br>
-                                
-                                    <lable for=\"numPax\">No. of pax</lable>
-                                    <input type=\"button\" class=\"change-btn\" onclick=\"minus1();\" value=\"&lt;\">
-                                    <input type=\"number\" id=\"num-btn\" name=\"numPax\" keyup=\"check_value\">
-                                    <input type=\"button\" class=\"change-btn\" onclick=\"add1();\" value=\"&gt;\">
-                                    <br><br>
-                                    Maximum purchase:<input type=\"number\" id=\"stk\" value=\"10\" disabled>
                                 <br>
                             </form>";
                     }
