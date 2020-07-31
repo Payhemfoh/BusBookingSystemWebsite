@@ -115,7 +115,7 @@
 
             <h2>Sign Up</h2>
             <form method="post" action="">
-                <p>Have an account? <a href="login.html">Login</a></p>
+                <p>Have an account? <a href="../webpage/login.php">Login</a></p>
                 <label for='email' class="form-label"><b>Email</b></label>
                 <input type='text' placeholder='Enter Email' name='email' required></input>
                 <br><br>
