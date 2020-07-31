@@ -77,7 +77,7 @@
     function validateUsername($username){
         $valid = true;
 
-        if(empty($password)){
+        if(empty($username)){
             echo "The username should not be empty!<br>";
             $valid = false;
         }
