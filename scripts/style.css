@@ -1,11 +1,34 @@
 #main{
     margin:0px;
-    background-color:orange;
+    background-image:url(../pictures/background.jfif);
+    background-position:center;
+    background-repeat:false;
+    font-family:Arial, Helvetica, sans-serif;
+}
+
+a{
+    color:blue;
+    text-decoration: none;
+    padding:10px;
+}
+
+a:hover{
+    color:rgb(54, 98, 128);
+    text-decoration: underline;
+}
+
+.red-text{
+    color:Yellow;
 }
 
 /*
 -------------Headers------------------------
 */
+.header-img{
+    padding:0;
+    margin:0;
+}
+
 .header-typeA{
     float:left;
     padding:3px 10px;
@@ -97,9 +120,6 @@ footer{
     border-radius:20px;
 }
 
-.hidden{
-    visibility: hidden;
-}
 
 /*
 ----------------buy ticket page ---------------------------
@@ -155,9 +175,11 @@ footer{
 
 .selection-text{
     padding:10px;
+    padding-right:60px;
     font-size:20px;
     color:black;
     text-decoration:none;
+    text-align:justify;
 }
 
 .selection-text:hover{
@@ -168,6 +190,10 @@ footer{
 
 .selection-title{
     padding-left:20px;
+}
+
+.hidden{
+    visibility:hidden;
 }
 
 /*
@@ -205,11 +231,47 @@ footer{
 
 .homepage-form-text{
     padding:20px;
-    color:black;
+    color:rgb(0,0,0);
     text-decoration:none;
 }
 
 .homepage-form-text:hover{
     background-color:rgba(0,0,0,0.6);
     color:white;
+}
+
+#num-btn{
+    width:50px;
+}
+
+#stk{
+    width:50px;
+    background-color:rgba(0,0,0,0);
+}
+
+.blackBlock{
+    background-color:rgba(0, 0, 0, 0.527);
+    color:white;
+    text-decoration:underline;
+}
+
+/*
+------------contact---------
+*/
+.whiteBackground{
+    background-color:rgba(255,255,255,1);
+}
+
+/*
+--------------------form-----------------
+*/
+
+.form-input{
+    border-radius:5px;
+    size:80px;
+}
+
+.form-label{
+    font-weight:bold;
+    font-size:16px;
 }

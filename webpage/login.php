@@ -20,7 +20,7 @@
                 <?php
                     if(!empty($uname)){
                         echo "<li><a href=\"../webpage/login.php\" class=\"header-typeB\"><p>Hi $uname</p></a></li>";
-                        echo "<li><a href=\"#\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
+                        echo "<li><a href=\"../webpage/purchase_history.php\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
                     }else{
                         echo "<li><a href=\"../webpage/register.php\" class=\"header-typeB\"><p>Register</p></a></li>";
                     }
@@ -67,62 +67,61 @@
                         //handle the value of login form
                         $username = $_POST['username'];
                         $password = $_POST['password'];
-                        $fill=TRUE;
+                        $isValid=TRUE;
+                        
                         //Show alert message when username had no entry
-                        if(empty($username)){
-                            print '<p>Please enter your username.</p>';
-                            $fill=FALSE;
-                        }
+                        if(!checkEmpty($username,"Username"))
+                            $isValid = false;
                         //Show alert message when password had no entry
-                        if(empty($password)){
-                            print '<p>Please enter your password.</p>';
-                            $fill=FALSE;
-                        }
+                        if(!checkEmpty($password,"Password"))
+                            $isValid = false;
+
                         //If every valid is true, show a success message
-                        if($fill){
+                        if($isValid){
 
-                            if(!$db = mysqli_connect('localhost','root','')){
-                                die('Could not connect: '.mysqli.error($db));
-                            }
-                
-                            //select database
-                            $selectDatabase=mysqli_select_db($db,'bus_system');
-                
-                            $querySQL="SELECT * FROM user WHERE username=='$username' and password =='$password'";
-                            $result= mysqli_query($db,$querySQL);
-                            
-                            //equals 1 if user found
-                            if(mysqli_num_rows($result)==1){
-                
-                                //store username
-                                $_SESSION['uname'] = $username;
-                                //store login time
-                                date_default_timezone_set("Asia/Kuala_Lumpur");
-                                $_SESSION['loginTime'] = date("y-m-d : h:m:sA");
+                            if($db = mysqli_connect('localhost','root','')){
+                                if(mysqli_select_db($db,'bus_system')){
+                                    $querySQL="SELECT * FROM user  WHERE username='$username' && userpassword ='$password'";
+                                    $result= mysqli_query($db,$querySQL);
+                                    
+                                    //equals 1 if user found
+                                    if(!empty($result) && mysqli_num_rows($result)==1){
+                        
+                                        //store username
+                                        $_SESSION['uname'] = $username;
+                                        //store login time
+                                        date_default_timezone_set("Asia/Kuala_Lumpur");
+                                        $_SESSION['loginTime'] = date("y-m-d : h:m:sA");
 
-                                if(isset($_POST['remember'])){
-                                    setcookie("rememberUsername",$uname);
-                                    setcookie("rememberPassword",$pwd);
-                                    setcookie("remember",true);
+                                        if(isset($_POST['remember'])){
+                                            setcookie("rememberUsername",$username);
+                                            setcookie("rememberPassword",$password);
+                                            setcookie("remember",true);
+                                        }else{
+                                            setcookie("rememberUsername","");
+                                            setcookie("rememberPassword","");
+                                            setcookie("remember","");
+                                        }
+                                        echo "<center>";
+                                        print "Hi,$username,You have been login successfully since ".date("y-m-d : h:m:sA");
+                                        echo "</center>";
+                                        returnToHomepage();
+                                    }
+                        
+                                    else{
+                                        echo"<p> User Not Found, please sign up or try again later!</p>";
+                                        returnToHomepage();
+                                    }
                                 }else{
-                                    setcookie("rememberUsername","");
-                                    setcookie("rememberPassword","");
-                                    setcookie("remember","");
+                                    die('Could not connect: '.mysqli_error($db));
+                                    returnToHomepage();
                                 }
-                                echo "<center>";
-                                print "Hi,$username,You have been login successfully since ".date("y-m-d : h:m:sA");
-                                echo "</center>";
+                                //close connection
+                                mysqli_close($db);
+                            }else{
+                                die('Could not connect: '.mysqli_error($db));
                                 returnToHomepage();
                             }
-                
-                            else{
-                                echo"<p> User Not Found, please sign up</p>";
-                            
-                            }
-                
-                            //close connection
-                            mysqli_close($login);
-
                         }
                     }
                     else{
@@ -149,6 +148,7 @@
                             <?php echo isset($_COOKIE['remember'])?"checked=\"checked\"":"" ?> 
                         name='remember'>Remember me</input>
                     </label>
+                    <p>By Login, you agree to Speedy Bus's <a href="../webpage/privacyPolicy.php">Terms & Privacy</a></p>
                     <p>New to Speedy Bus? <a href="signup.html">Click Here to Sign Up</a></p>
                 </form>
             <?php 

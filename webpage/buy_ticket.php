@@ -14,104 +14,196 @@
             //connect database
             if($db = mysqli_connect("localhost","root","")){
                 if(mysqli_select_db($db,"bus_system")){
-                    $query = "SELECT area FROM ";
-
-
-
-
-
-
-
-
-                }
-            }
-
-            
+                    
         ?>
 
         <div id="content">
-            <div class="buy-ticket-title">
-                <h1>Choose destination</h1>
+            <?php
+                $months = array("January"=>31,"February"=>28,"March"=>31,"April"=>30,"May"=>31,"June"=>30,
+                "July"=>31,"August"=>31,"September"=>30,"October"=>31,"November"=>30,"December"=>31);
 
-                <label for="type">Type of ticket</label>
-                    <input type="radio" value="1">One Way  
-                    <input type="radio" value="2">Round Trip
-                    <input type="radio" value="3">Day Pass
-                    <input type="radio" value="4">Monthly Pass
-            </div>
+                echo "<h2>Month</h2>";
+                if(!empty($_GET['month'])){
+                    $month = $_GET['month'];
+                }else{
+                    $month = 0;
+                }
 
-
-            <div id="buy-ticket-content">
-                <div id="buy-ticket-state">
-                    <h1 class="selection-title">State:</h1>
-                    <ul id="choose-state" type="none">
-                    <?php
-                        if(!empty($_GET['states']))
-                            $getState = $_GET['states'];
-                        else
-                            $getState = "";
-                        
-                        $states = array("Perlis","Kelantan","Kedah","Penang","Pahang",
-                        "Selangor","Kuala Lumpur","Puchong","Melaka","Terengganu","Johor","Sabah","Sarawak");
-
-                        foreach($states as $row){
-                            echo "<li class=\"selection\">";
-                            if($getState == $row)
-                                echo "<a href=\"buy_ticket.php?states=$row\" class=\"selection-text blackBlock\">";
-                            else
-                                echo "<a href=\"buy_ticket.php?states=$row\" class=\"selection-text\">";
-                            
-                            echo "      $row
+                //print the form selection bar
+                echo "<ul id=\"homepage-select\" type=\"none\">";
+                    foreach($months as $key => $num){
+                        if($key === $month){
+                            echo "  <li class=\"homepage-form\">
+                                        <a href=\"buy_ticket.php?month=".($key)."\" class=\"homepage-form-text blackBlock\">
+                                            $key
+                                        </a>
+                                    </li>";
+                        }else{
+                        echo "  <li class=\"homepage-form\">
+                                    <a href=\"buy_ticket.php?month=".($key)."\" class=\"homepage-form-text\">
+                                        $key
                                     </a>
                                 </li>";
                         }
-                    ?>
-                    </ul>
-                </div>
-                
-                <?php
-                $areas = array("1","2","3");
+                    }
+                echo "</ul>";
 
-                if(!empty($_GET['area']))
-                    $getArea = $_GET['area'];
-                else
-                    $getArea = "";
+                if(!empty($month)){
 
-                if(!empty($getState)){
-                echo "
-                <div id=\"buy-ticket-area\">
-                    <h1 class=\"selection-title\">Area:</h1>
-                    <ul id=\"choose-area\" type=\"none\">";
-                
-                foreach($areas as $row){
-                    if($row == $getArea)
-                        echo "<li class=\"selection\"><a href=\"buy_ticket.php?states=$getState&&area=$row\" class=\"selection-text blackBlock\">$row</a></li>";
-                    else
-                        echo "<li class=\"selection\"><a href=\"buy_ticket.php?states=$getState&&area=$row\" class=\"selection-text\">$row</a></li>";
+                    echo "<h2>Day</h2>";
+                    if(!empty($_GET['day'])){
+                        $day = $_GET['day'];
+                    }else{
+                        $day = 0;
+                    }
+                    
+                    //print the form selection bar
+                    echo "<ul id=\"homepage-select\" type=\"none\">";
+                        for($i=1;$i<=31;++$i){
+                            if($i == $day){
+                                echo "  <li class=\"homepage-form\">
+                                            <a href=\"buy_ticket.php?month=$month&&day=".($i)."\" class=\"homepage-form-text blackBlock\">
+                                                $i
+                                            </a>
+                                        </li>";
+                            }else{
+                            echo "  <li class=\"homepage-form\">
+                                        <a href=\"buy_ticket.php?month=$month&&day=".($i)."\" class=\"homepage-form-text\">
+                                            $i
+                                        </a>
+                                    </li>";
+                            }
+                        }
+                    echo "</ul>";
                 }
-                echo  "</ul>
-                </div>";
 
-                } 
-                ?>
 
-                <?php
-                $stations = array("1","2","3");
+                if(!empty($day)){
+                    $formType = array("One Way","Round Trip","Day Pass","Monthly Pass");
 
-                if(!empty($getArea)){
-                echo "
-                <div id=\"buy-ticket-station\">
-                    <h1 class=\"selection-title\">Station:</h1>
-                    <ul id=\"choose-station\" type=\"none\">";
+                    echo "<h2>Ticket Type</h2>";
+                    if(!empty($_GET['formSelected'])){
+                        $formSelected = $_GET['formSelected'];
+                    }else{
+                        $formSelected = -1;
+                    }
 
-                foreach($stations as $row){
-                    echo "<li class=\"selection\"><a href=\"buy_ticket.php?states=$getState&&area=$getArea&&station=$row\" class=\"selection-text\">$row</a></li>";
+                    //print the form selection bar
+                    echo "<ul id=\"homepage-select\" type=\"none\">";
+                        foreach($formType as $key => $type){
+                            if($key == (int)$formSelected-1){
+                                echo "  <li class=\"homepage-form\">
+                                            <a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=".($key+1)."\" class=\"homepage-form-text blackBlock\">
+                                                $type
+                                            </a>
+                                        </li>";
+                            }else{
+                            echo "  <li class=\"homepage-form\">
+                                        <a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=".($key+1)."\" class=\"homepage-form-text\">
+                                            $type
+                                        </a>
+                                    </li>";
+                            }
+                        }
+                    echo "</ul>";
                 }
-                echo    "</ul>
-                </div>";
-                } ?>
-            </div>
-            
+
+                if(!empty($formSelected) && $formSelected!= -1){
+            ?>
+
+                    <div id="buy-ticket-content">
+                        <div id="buy-ticket-state">
+                            <h1 class="selection-title">State:</h1>
+                            <ul id="choose-state" type="none">
+                            <?php
+                                if(!empty($_GET['states']))
+                                    $getState = $_GET['states'];
+                                else
+                                    $getState = "";
+                                
+                                $states = array("Perlis","Kelantan","Kedah","Penang","Pahang",
+                                "Selangor","Kuala Lumpur","Puchong","Melaka","Terengganu","Johor","Sabah","Sarawak");
+
+                                foreach($states as $row){
+                                    echo "<li class=\"selection\">";
+                                    if($getState == $row)
+                                        echo "<a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=$formSelected".
+                                            "&&states=$row\" class=\"selection-text blackBlock\">";
+                                    else
+                                        echo "<a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=$formSelected".
+                                            "&&states=$row\" class=\"selection-text\">";
+                                    
+                                    echo "      $row
+                                            </a>
+                                        </li>";
+                                }
+                            ?>
+                            </ul>
+                        </div>
+                        
+                        <?php
+                        $areas = array();
+
+                        if(!empty($_GET['area']))
+                            $getArea = $_GET['area'];
+                        else
+                            $getArea = "";
+
+                        if(!empty($getState)){
+                            $query = "SELECT area FROM station_list WHERE stationState='$getState'";
+                            $data = mysqli_query($db,$query);
+
+                            while(!empty($data) && $row = mysqli_fetch_array($data)){
+                                $areas[] = $row['area'];
+                            }
+                        echo "
+                        <div id=\"buy-ticket-area\">
+                            <h1 class=\"selection-title\">Area:</h1>
+                            <ul id=\"choose-area\" type=\"none\">";
+                        
+                        foreach($areas as $row){
+                            if($row == $getArea)
+                                echo "<li class=\"selection\"><a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=formSelected=$formSelected".
+                                        "&&states=$getState&&area=$row\" class=\"selection-text blackBlock\">$row</a></li>";
+                            else
+                                echo "<li class=\"selection\"><a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=$formSelected".
+                                    "&&states=$getState&&area=$row\" class=\"selection-text\">$row</a></li>";
+                        }
+                        echo  "</ul>
+                        </div>";
+
+                        } 
+                        ?>
+
+                        <?php
+                        $stations = array("1","2","3");
+
+                        if(!empty($getArea)){
+                            $query = "SELECT station FROM station_list WHERE stationState='$getState' && stationArea='$getArea'";
+                            $data = mysqli_query($db,$query);
+                            while(!empty($data) && $row = mysqli_fetch_array($data)){
+                                $areas[] = $row['area'];
+                            }
+                        echo "
+                        <div id=\"buy-ticket-station\">
+                            <h1 class=\"selection-title\">Station:</h1>
+                            <ul id=\"choose-station\" type=\"none\">";
+
+                        foreach($stations as $row){
+                            echo "<li class=\"selection\"><a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=$formSelected".
+                            "&&states=$getState&&area=$getArea&&station=$row\" class=\"selection-text\">$row</a></li>";
+                        }
+                        echo    "</ul>
+                        </div>";
+                        }
+                    } 
+                }else{
+                    die("Failed to select the database. Please try again later.");
+                }
+            }else{
+                die("Failed to connect to the database server. Please try again later.");    
+            }
+            ?>
         </div>
 
         <?php

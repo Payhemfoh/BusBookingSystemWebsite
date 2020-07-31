@@ -2,7 +2,6 @@
 <html lang="en">
     <head>
         <title>Speedy Bus | Home page</title>
-        <script src="../scripts/num-btn.js"></script>
         <?php include("../webpage/headinclude.html");?>
     </head>
 
@@ -71,14 +70,34 @@
                     }
                     else{
                         //print the form selected by the user
-                        echo "<form id=\"form\" action=\"homepage.php\" method=\"post\">
+                        echo "<form id=\"form\" action=\"chooseBus.php\" method=\"post\">
                                 <br><br>
                                 <table>";
                         
+                        echo "<h2>State</h2>";
+                        echo "<input type=\"text\" name=\"state\" value=\"$state\" disabled><br><br>";
+                        
+                        echo "<h2>Station</h2>";
+                        echo "<select name=\"station\">";
+                        if($db = mysqli_connect("localhost","root","")){
+                            if(mysqli_select_db($db,"bus_system")){
+
+                                $query = "SELECT stationName FROM station_list WHERE stationState = $state";
+                                $data = mysqli_query($db,$query);
+                                if(!empty($data && $row = mysqli_fetch_array($data))){
+                                    echo "<option value=\"$row\">$row</option>";
+                                }
+
+                            }else{
+                                echo "<option>null</option>";
+                            }
+                        }else{
+                            echo "<option>null</option>";
+                        }
+                        echo "</select>";
+                        
                         switch($formSelected){
                         case 1:
-                            echo "<h2>State</h2>";
-                            echo "<input type=\"text\" name=\"state\" value=\"$state\" disabled>";
                             echo "<h2>Select Month</h2>
                                     <select name=\"month\">";
                             foreach($month as $m => $d){
@@ -98,8 +117,6 @@
                             echo "<input type=\"hidden\" name=\"form_type\" value=\"oneway_ticket\">";
                             break;
                         case 2:
-                            echo "<h2>State</h2>";
-                            echo "<input type=\"text\" name=\"state\" value=\"$state\" disabled>";
                             echo "<h2>Select Month</h2>
                                     <select name=\"month\">";
                             foreach($month as $m => $d){
@@ -119,8 +136,6 @@
                             echo "<input type=\"hidden\" name=\"form_type\" value=\"roundtrip_ticket\">";
                             break;
                         case 3:
-                            echo "<h2>State</h2>";
-                            echo "<input type=\"text\" name=\"state\" value=\"$state\" disabled>";
                             echo "<h2>Select Month</h2>
                                     <select name=\"month\">";
                             foreach($month as $m => $d){
@@ -139,29 +154,24 @@
                             echo "<input type=\"hidden\" name=\"form_type\" value=\"daily_ticket\">";
                             break;
                         case 4:
-                            echo "<h2>State</h2>";
-                            echo "<input type=\"text\" name=\"state\" value=\"$state\" disabled>";
                             echo "<h2>Select Month</h2>
                                     <select name=\"month\">";
                             foreach($month as $m => $d){
                                 echo "<option value=\"$m\">$m</option>";
                             }
+                            echo "<br>";
                             echo "</select>
-                                    <input type=\"hidden\" name=\"form_type\" value=\"monthly_ticket\">";
+                                <input type=\"hidden\" name=\"form_type\" value=\"monthly_ticket\">
+                                <input type=\"hidden\" name=\"day\" value=\"1\">";
+                            
                             break;
                         }
 
                         echo "</table>
-                                <br><br>
+                                <br>
                                     <input type=\"submit\" value=\"search\">
-                                    <br><br>
-                                
-                                    <lable for=\"numPax\">No. of pax</lable>
-                                    <input type=\"button\" class=\"change-btn\" onclick=\"minus1();\" value=\"&lt;\">
-                                    <input type=\"number\" id=\"num-btn\" name=\"numPax\" keyup=\"check_value\">
-                                    <input type=\"button\" class=\"change-btn\" onclick=\"add1();\" value=\"&gt;\">
-                                    <br><br>
-                                    Maximum purchase:<input type=\"number\" id=\"stk\" value=\"10\" disabled>
+                                    <input type=\"hidden\" name=\"submitted\" value=\"true\">
+                                    <input type=\"hidden\" name=\"state\" value=\"$state\">
                                 <br>
                             </form>";
                     }

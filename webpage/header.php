@@ -7,7 +7,7 @@
         <?php
             if(!empty($uname)){
                 echo "<li><a href=\"../webpage/login.php\" class=\"header-typeB\"><p>Hi $uname</p></a></li>";
-                echo "<li><a href=\"#\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
+                echo "<li><a href=\"../webpage/purchase_history.php\" class=\"header-typeB\"><p>Shopping Cart</p></a></li>";
             }else{
                 echo "<li><a href=\"../webpage/login.php\" class=\"header-typeB\"><p>Sign In/Register</p></a></li>";
             }

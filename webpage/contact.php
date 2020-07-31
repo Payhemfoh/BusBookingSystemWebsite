@@ -65,68 +65,77 @@
                 if(isset($_POST['submitted'])){
 
                     //login data base
-                    $login = mysqli_connect('localhost','root','');
-                    if(!$login){
+                    if($login = mysqli_connect('localhost','root','')){
+                        //if no database found
+                        if(mysqli_select_db($login,'bus_system')){
+                            //data field
+                            $email=$_POST['email'];
+                            $first_name=$_POST['fname'];
+                            $last_name=$_POST['lname'];
+                            $gender=$_POST['gender'];
+                            $phone_number=$_POST['phone'];
+                            $respond_type = $_POST['respondType'];
+                            $feedback=$_POST['feedback'];
+                            $isValid = true;
+
+                            /*
+                                ----validations-------
+                            */
+                            if(!validateEmail($email))
+                                $isValid = false;
+                            
+                            if(!validateAlphabet($first_name,"First name"))
+                                $isValid = false;
+
+                            if(!validateAlphabet($last_name,"Last name"))
+                                $isValid = false;
+
+                            if(!checkEmpty($gender,"Gender"))
+                                $isValid = false;
+
+                            if(!validatePhone($phone_number))
+                                $isValid = false;
+
+                            if(!checkEmpty($respond_type,"Respond type"))
+                                $isValid = false;
+                            
+                            if(!checkEmpty($feedback,"Feedback"))
+                                $isValid = false;
+
+                            //check all set
+                            if($isValid){
+
+                                $querySQL="INSERT INTO contactResponse(responseId,email,firstName,lastName,gender,phoneNumber,respondType,feedback)
+                                            VALUES(0,'$email','$first_name','$last_name','$gender','$phone_number','$respond_type','$feedback')";
+
+                                //if all success insert
+                                if(mysqli_query($login,$querySQL)){
+                                    echo"<p>Submit sucessfully</p>";
+                                    echo"<a href='home.php'>Back to main page</a>";
+                                }
+
+                                else{
+
+                                    echo"<p style='color:red;'> Unsuccessful register entry
+                                            into database because of:>".mysqli_error($login).
+                                            "The query was:" .$querySQL. "</p>";
+                                    returnToHomepage();
+                                }
+                            }else{
+                                echo "<p>Failed to submit the form. Please try again later.</p>";
+                                returnToHomepage();
+                            }
+
+                        }else{
+                            die("<p>Error creating database:" .mysqli_error($login). "</p>");
+                        }
+
+                        //close connection
+                        mysqli_close($login);
+                    }else{
                         die('Could not connect: '.mysqli.error($login));
-                    }               
+                    }              
 
-                    //if no database found
-                    while(!mysqli_select_db($login,'bus_system')){
-                        //if does not exist
-                        $sql='CREATE DATABASE bus_system';
-
-                        if(mysqli_query($login,$sql)){
-                            echo"<p>Database created successfully</p>";}
-                        else{
-                            echo"<p>Error creating database:" .mysqli_error($login). "</p>";
-                        }
-                    }
-                    
-                    //data field
-                    $email=$_POST['email'];
-                    $first_name=$_POST['firstName'];
-                    $last_name=$_POST['lastName'];
-                    $gender=$_POST['gender'];
-                    $phone_number=$_POST['PhoneNumber'];
-                    $respond_type = $_POST['respondType'];
-                    $feedback=$_POST['feedback'];
-
-                    /*
-                        ----validations-------
-                    */
-
-
-
-
-
-
-
-
-
-
-
-                    //check all set
-                    if($isValid){
-
-                        $querySQL="INSERT INTO enquiry(email,firstName,lastName,gender,phoneNumber,respondType,feedback)
-                                    VALUES('$email','$first_name','$last_name','$gender','$phone_number','$respond_type','$feedback')";
-
-                        //if all success insert
-                        if(mysqli_query($login,$querySQL)){
-                            echo"<p>Submit sucessfully</p>";
-                            echo"<a href='home.php'>Back to main page</a>";
-                        }
-
-                        else{
-
-                            echo"<p style='color:red;'> Unsuccessful register entry
-                                    into database because of:>".mysqli_error($login).
-                                    "The query was:" .$querySQL. "</p>";
-                        }
-                    }
-                    
-                    //close connection
-                    mysqli_close($login);
                 }
 
                 else{
@@ -155,9 +164,9 @@
 
                         <label for="respondType" class="form-label">Respond Type:</label>
                         <input type="radio" id="respondType-phone" name="respondType" value="phone">
-                        <label for="phone" class="form-label">Phone Number</lable>
+                        <label for="choice_phone" class="form-label">Phone Number</lable>
                         <input type="radio" id="respondType-email" name="respondType" value="email">
-                        <label for="email" class="form-label">Email</lable><br><br>
+                        <label for="choice_email" class="form-label">Email</lable><br><br>
                     </fieldset>
                 
                     <br>
@@ -165,7 +174,7 @@
                     <fieldset>
                         <legend><h3>Feedback:</h3></legend>
                         <label for = "feedback" class="form-label">Tell us your feedback and comment:</label><br><br>
-                        <textarea id = "feedback" name = "feedback" rows="9" cols="50" placeholder = "Write Something..."></textarea><br><br>
+                        <textarea id = "feedback" name = "feedback" rows="13" cols="70" placeholder = "Write Something..."></textarea><br><br>
                     
                         <input type="submit" value="Submit">
                         <input type="hidden" name="submitted" value="true">
