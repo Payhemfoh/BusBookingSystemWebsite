@@ -176,13 +176,13 @@
                         ?>
 
                         <?php
-                        $stations = array("1","2","3");
+                        $stations = array();
 
                         if(!empty($getArea)){
                             $query = "SELECT stationName FROM station_list WHERE stationState='$getState' && stationArea='$getArea'";
                             $data = mysqli_query($db,$query);
                             while(!empty($data) && $row = mysqli_fetch_array($data)){
-                                $areas[] = $row['stationName'];
+                                $stations[] = $row['stationName'];
                             }
                         echo "
                         <div id=\"buy-ticket-station\">
