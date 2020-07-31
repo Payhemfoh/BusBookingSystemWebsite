@@ -190,7 +190,7 @@
                             <ul id=\"choose-station\" type=\"none\">";
 
                         foreach($stations as $row){
-                            echo "<li class=\"selection\"><a href=\"buy_ticket.php?month=$month&&day=$day&&formSelected=$formSelected".
+                            echo "<li class=\"selection\"><a href=\"chooseBus.php?month=$month&&day=$day&&formSelected=$formSelected".
                             "&&states=$getState&&area=$getArea&&station=$row\" class=\"selection-text\">$row</a></li>";
                         }
                         echo    "</ul>
