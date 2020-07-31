@@ -150,11 +150,11 @@
                             $getArea = "";
 
                         if(!empty($getState)){
-                            $query = "SELECT area FROM station_list WHERE stationState='$getState'";
+                            $query = "SELECT stationArea FROM station_list WHERE stationState='$getState'";
                             $data = mysqli_query($db,$query);
 
                             while(!empty($data) && $row = mysqli_fetch_array($data)){
-                                $areas[] = $row['area'];
+                                $areas[] = $row['stationArea'];
                             }
                         echo "
                         <div id=\"buy-ticket-area\">
@@ -179,10 +179,10 @@
                         $stations = array("1","2","3");
 
                         if(!empty($getArea)){
-                            $query = "SELECT station FROM station_list WHERE stationState='$getState' && stationArea='$getArea'";
+                            $query = "SELECT stationName FROM station_list WHERE stationState='$getState' && stationArea='$getArea'";
                             $data = mysqli_query($db,$query);
                             while(!empty($data) && $row = mysqli_fetch_array($data)){
-                                $areas[] = $row['area'];
+                                $areas[] = $row['stationName'];
                             }
                         echo "
                         <div id=\"buy-ticket-station\">
