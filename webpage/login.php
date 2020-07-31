@@ -149,7 +149,7 @@
                         name='remember'>Remember me</input>
                     </label>
                     <p>By Login, you agree to Speedy Bus's <a href="../webpage/privacyPolicy.php">Terms & Privacy</a></p>
-                    <p>New to Speedy Bus? <a href="signup.html">Click Here to Sign Up</a></p>
+                    <p>New to Speedy Bus? <a href="../webpage/signup.php">Click Here to Sign Up</a></p>
                 </form>
             <?php 
                 }
