@@ -150,7 +150,7 @@
                             $getArea = "";
 
                         if(!empty($getState)){
-                            $query = "SELECT stationArea FROM station_list WHERE stationState='$getState'";
+                            $query = "SELECT DISTINCT stationArea FROM station_list WHERE stationState='$getState'";
                             $data = mysqli_query($db,$query);
 
                             while(!empty($data) && $row = mysqli_fetch_array($data)){
