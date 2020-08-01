@@ -31,8 +31,10 @@
                     $month = $_POST['month'];
                     $day = $_POST['day'];
                     $area = "";
-                    $query = "SELECT stationArea FROM station_list WHERE stationName = $station";
-                    while($row = mysqli_fetch_array(mysqli_query($db,$query))){
+                    $query = "SELECT stationArea FROM station_list WHERE stationName = '$station'";
+                        
+                    $data = mysqli_query($db,$query);
+                    if(!empty($data) && $row = mysqli_fetch_array($data)){
                         $area = $row['stationArea'];
                     }
 
@@ -40,8 +42,8 @@
                 }
                 
                 else if(isset($_GET['formSelected'])){
-                    $type = $_GET['form_type'];
-                    $state = $_GET['state'];
+                    $type = $_GET['formSelected'];
+                    $state = $_GET['states'];
                     $area = $_GET['area'];
                     $station = $_GET['station'];
                     $month = $_GET['month'];
@@ -54,10 +56,14 @@
 
                 if($submitted)
                 echo "<form action=\"paymentForm.php\" method=\"post\">";
-                echo "<label for=\"type\">Ticket Type</label><br>";
-                echo "<input type=\"text\" name=\"type\" value=\"$type\" readonly><br><br>";
+                
 
-                if($type == "oneway_ticket"){
+                if($type == "1"){
+                    $type = "oneway_ticket";
+
+                    echo "<label for=\"type\">Ticket Type</label><br>";
+                    echo "<input type=\"text\" name=\"type\" value=\"$type\" readonly><br><br>";
+
                     echo "<label for=\"state\">State</label><br>";
                     echo "<input type=\"text\" name=\"state\" value=\"$state\" readonly><br><br>";
 
@@ -95,7 +101,12 @@
                     echo "<br><br>";
 
                 }
-                else if($type == "roundtrip_ticket"){
+                else if($type == "2"){
+                    $type = "roundtrip_ticket";
+
+                    echo "<label for=\"type\">Ticket Type</label><br>";
+                    echo "<input type=\"text\" name=\"type\" value=\"$type\" readonly><br><br>";
+
                     echo "<label for=\"state\">State</label><br>";
                     echo "<input type=\"text\" name=\"state\" value=\"$state\" readonly><br><br>";
 
@@ -133,7 +144,12 @@
                     echo "<br><br>";
 
                 }
-                else if($type == "daily_ticket"){
+                else if($type == "3"){
+                    $type = "daily_ticket";
+
+                    echo "<label for=\"type\">Ticket Type</label><br>";
+                    echo "<input type=\"text\" name=\"type\" value=\"$type\" readonly><br><br>";
+
                     echo "<label for=\"state\">State</label><br>";
                     echo "<input type=\"text\" name=\"state\" value=\"$state\" readonly><br><br>";
 
@@ -144,7 +160,12 @@
                     echo "<input type=\"text\" name=\"day\" value=\"$day\" readonly><br><br>";
 
                 }
-                else if($type == "monthly_ticket"){
+                else if($type == "4"){
+                    $type = "monthly_ticket";
+
+                    echo "<label for=\"type\">Ticket Type</label><br>";
+                    echo "<input type=\"text\" name=\"type\" value=\"$type\" readonly><br><br>";
+
                     echo "<label for=\"state\">State</label><br>";
                     echo "<input type=\"text\" name=\"state\" value=\"$state\" readonly><br><br>";
 
