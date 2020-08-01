@@ -158,7 +158,8 @@
 
                     echo "<label for=\"busId\">day</label><br>";
                     echo "<input type=\"text\" name=\"day\" value=\"$day\" readonly><br><br>";
-
+                    echo "<input type=\"hidden\" name=\"station\" value=\"$station\">";
+                    echo "<input type=\"hidden\" name=\"area\" value=\"$area\">";
                 }
                 else if($type == "4"){
                     $type = "monthly_ticket";
