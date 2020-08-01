@@ -39,20 +39,26 @@
                 while(!empty($purchaseDisplay) && $row=mysqli_fetch_array($purchaseDisplay)){
                     echo"<table>";
                 
+                    $query = "SELECT * FROM station_list s,bus_schedule b WHERE 
+                                stationId = s.stationId = b.stationId && b.busId = ".$row['busId'];
+                    
+                    $busData = mysqli_fetch_array(mysqli_query($db,$query));
+
+                    $query = "SELECT * FROM tickets WHERE ticketId = ".$row['ticketId'];
+
+                    $ticketData = mysqli_fetch_array(mysqli_query($db,$query));
+
                     //table header
                     echo"<tr>
                     <th>Payment Id</th>
-                    <th>Payment Date</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Payment Method</th>
                     <th>Card No</th>
-                    <th>Bus Type</th>
                     <th>Destination</th>
                     <th>Travel Date</th>
                     <th>Total Pax</th>
                     <th>Ticket Price</th>
-                    <th>ETA</th>
                     <th>Total Paid</th>
                     </tr>"; 
 
@@ -62,13 +68,11 @@
                     echo"<td>".$row['lastName']."</td>";
                     echo"<td>".$row['paymentMethod']."</td>";
                     echo"<td>".$row['cardNo']."</td>";
-                    echo"<td>".$row['busType']."</td>";
-                    echo"<td>".$row['destination']."</td>";
+                    echo"<td>".$busData['s.stationName']."-".$busData['s.stationArea']."-".$busData['s.stationState']."</td>";
                     echo"<td>".$row['travelDate']."</td>";
-                    echo"<td>".$row['totalPax']."</td>";
-                    echo"<td>".$row['ticketPrice']."</td>";
-                    echo"<td>".$row['ETA']."/td>";
-                    echo"<td>".$row['totalPaid']."</td>";
+                    echo"<td>".$row['numPax']."</td>";
+                    echo"<td>".$ticketData['price']."</td>";
+                    echo"<td>".$row['totalPrice']."</td>";
 
                     echo"</table><br><br>";
                 }
