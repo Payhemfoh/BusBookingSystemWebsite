@@ -134,7 +134,7 @@
 			if($db = mysqli_connect("localhost","root","")){
 				if(mysqli_select_db($db,"bus_system")){
 
-					$query = "SELECT * FROM tickets WHERE ticketType==$type";
+					$query = "SELECT * FROM tickets WHERE ticketType='$type'";
 					$ticketData = mysqli_fetch_array(mysqli_query($db,$query));
 
 					echo "
@@ -149,34 +149,34 @@
 
 							<tr>
 								<td><b>Ticket type</b></td>
-								<td><input type=\"text\" name=\"form_type\" value=\"$type\" disabled></td>
+								<td><input type=\"text\" name=\"form_type\" value=\"$type\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Travel Date</b></td>
-								<td><input type=\"text\" name=\"travelDate\" value=\"$month\" disabled></td>
+								<td><input type=\"text\" name=\"travelDate\" value=\"$month\" readonly></td>
 							</tr>";
 					
 					
 					if($type == "monthly_ticket"){
 						echo "<tr>
 								<td><b>State</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$state\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"$state\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Travel Date</b></td>
-								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" disabled></td>
+								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Ticket price per pax</b></td>
-								<td><input type=\"text\" name=\"ticket_price\" value=\"".$ticketData['price']."\" disabled></td>
+								<td><input type=\"text\" name=\"ticket_price\" value=\"".$ticketData['price']."\" readonly></td>
 							</tr>
 							
 							</table>
@@ -185,22 +185,22 @@
 					else if($type == "daily_ticket"){
 						echo "<tr>
 								<td><b>State</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$state\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"$state\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Date</b></td>
-								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" disabled></td>
+								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Ticket price per pax</b></td>
-								<td><input type=\"text\" name=\"ticket_price\" value=\"".$ticketData['price']."\" disabled></td>
+								<td><input type=\"text\" name=\"ticket_price\" value=\"".$ticketData['price']."\" readonly></td>
 							</tr>
 							
 							</table>
@@ -217,31 +217,31 @@
 
 						echo "<tr>
 								<td><b>Departure</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$state - $area - $station\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"$state - $area - $station\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Travel Date</b></td>
-								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" disabled></td>
+								<td><input type=\"text\" name=\"travelDate\" value=\"$month - $day\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>Departure Time</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"".$data['b.timeTravel']."\" disabled></td>
+								<td><input type=\"text\" name=\"departure\" value=\"".$data['b.timeTravel']."\" readonly></td>
 							</tr>
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" disabled></td>
-							</tr>
+								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
+							</tr>";
 							
-							<tr>
+						printf("<tr>
 								<td><b>Ticket price per pax</b></td>
-								<td><input type=\"text\" name=\"ticket_price\" value=\"".$ticketData['price']."\" disabled></td>
+								<td><input type=\"text\" name=\"ticket_price\" value=\"$.2f\" readonly></td>
 							</tr>
 							
 							</table>
-						</fieldset>";
+						</fieldset>",$ticketData['price']);
 					}else{
 						returnToHomepage();
 					}
@@ -290,7 +290,7 @@
 					
 					<tr>
 						<td><b>Total Payable:</b></td>
-						<td><input type=\"text\" name=\"totalPrice\" value=\"".((float)($ticketData['price'])*(int)($total_pax))."\" disabled></td>
+						<td><input type=\"text\" name=\"totalPrice\" value=\"".((float)($ticketData['price'])*(int)($total_pax))."\" readonly></td>
 					</tr>
 					
 					
