@@ -82,17 +82,19 @@
                         if($db = mysqli_connect("localhost","root","")){
                             if(mysqli_select_db($db,"bus_system")){
 
-                                $query = "SELECT stationName FROM station_list WHERE stationState = $state";
+                                $query = "SELECT DISTINCT stationName FROM station_list WHERE stationState = '$state'";
                                 $data = mysqli_query($db,$query);
-                                if(!empty($data && $row = mysqli_fetch_array($data))){
-                                    echo "<option value=\"$row\">$row</option>";
+                                while(!empty($data) && $row = mysqli_fetch_array($data)){
+                                    echo "<option value=\"".$row['stationName']."\">".$row['stationName']."</option>";
                                 }
 
                             }else{
-                                echo "<option>null</option>";
+                                echo "<option>1</option>";
                             }
+
+                            mysqli_close($db);
                         }else{
-                            echo "<option>null</option>";
+                            echo "<option>1</option>";
                         }
                         echo "</select>";
                         
@@ -114,7 +116,7 @@
                             echo "</select>";
 
 
-                            echo "<input type=\"hidden\" name=\"form_type\" value=\"oneway_ticket\">";
+                            echo "<input type=\"hidden\" name=\"form_type\" value=\"1\">";
                             break;
                         case 2:
                             echo "<h2>Select Month</h2>
@@ -133,7 +135,7 @@
                             echo "</select>";
 
 
-                            echo "<input type=\"hidden\" name=\"form_type\" value=\"roundtrip_ticket\">";
+                            echo "<input type=\"hidden\" name=\"form_type\" value=\"2\">";
                             break;
                         case 3:
                             echo "<h2>Select Month</h2>
@@ -151,7 +153,7 @@
                             }
                             echo "</select>";
 
-                            echo "<input type=\"hidden\" name=\"form_type\" value=\"daily_ticket\">";
+                            echo "<input type=\"hidden\" name=\"form_type\" value=\"3\">";
                             break;
                         case 4:
                             echo "<h2>Select Month</h2>
@@ -161,7 +163,7 @@
                             }
                             echo "<br>";
                             echo "</select>
-                                <input type=\"hidden\" name=\"form_type\" value=\"monthly_ticket\">
+                                <input type=\"hidden\" name=\"form_type\" value=\"4\">
                                 <input type=\"hidden\" name=\"day\" value=\"1\">";
                             
                             break;
