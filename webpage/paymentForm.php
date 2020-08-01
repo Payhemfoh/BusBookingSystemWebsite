@@ -23,11 +23,10 @@
 			$card_no=$_POST['cardNo'];
 			$expire_date=$_POST['expireDate'];
 			$cvv=$_POST['cvv'];
-			$total_pay=$_POST['totalPay'];
+			$total_pay=$_POST['totalPrice'];
 			//next time user login check purchase history, use this username to match
-			$busId=$_POST['busId'];
 			$travel_date=$_POST['travelDate'];
-			$total_pax=$_POST['totalPax'];
+			$total_pax=$_POST['numPax'];
 			$ticket_type=$_POST['type'];
 			$isValid = true;
 
@@ -55,14 +54,22 @@
 			if(!checkEmpty($total_pax,"Total number of person"))
 				$isValid = false;
 			
-			if(!checkEmpty($busId,"Bus"))
-				$isValid = false;
+			
 			
 			if(!checkEmpty($travel_date,"Travel Date"))
 				$isValid = false;
 			
 			if(!checkEmpty($ticket_type,"Ticket Type"))
 				$isValid = false;
+			
+			if($type=="oneway_ticket"||$type=="roundtrip_ticket"){
+                                $busId=$_POST['busId'];
+				if(!checkEmpty($busId,"Bus"))
+				        $isValid = false;
+			}else{
+                                $busId = 0;
+			}
+			
 			
 			//check all set
 			if($isValid){
@@ -149,7 +156,7 @@
 
 							<tr>
 								<td><b>Ticket type</b></td>
-								<td><input type=\"text\" name=\"form_type\" value=\"$type\" readonly></td>
+								<td><input type=\"text\" name=\"type\" value=\"$type\" readonly></td>
 							</tr>
 							
 							<tr>
@@ -239,7 +246,7 @@
 								<td><b>Ticket price per pax</b></td>
 								<td><input type=\"text\" name=\"ticket_price\" value=\"$.2f\" readonly></td>
 							</tr>
-							
+							        <input type=\"hidden\" name=\"busId\" value=\"$busId\">
 							</table>
 						</fieldset>",$ticketData['price']);
 					}else{
