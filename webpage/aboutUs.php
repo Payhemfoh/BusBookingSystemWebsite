@@ -21,16 +21,16 @@
 
             <h3>How can we get that to happen?</h3>
             <p>Our purpose is to constantly provide the best service for all of our customer. We offer one of the most hassle-free booking experience in the industry. 
-               A few clicks away and you are ready to travel to your favorite or desire destination. Booking has never been easier with Speedy Bus. Just search, book and go!</p>
+               A few clicks away and you are ready to travel to your favorite or desire destination. Booking has never been easier with Speedy Bus. Just search, book and go!
+               The most important is we can prove ourself with the support billion of customers that always trust us and choose us.</p>
             <br><br>
             
             <h3>Regarding our network</h3>
             <p>We provide traveling through local states and crossover states. 
-               There are many states provided such as Penang, Kedah, Pahang, Johor and etc. In Speedy Bus Booking Website, we always strive to provide a vast array of operators service for our customers.</p>
-            <br><br>
+               There are many states provided such as Penang, Kedah, Pahang, Johor and etc. In Speedy Bus Booking Website, we always strive to provide a vast array of operators service for our customers.
+               </p>
+            <p><font color="#999999">&copy; 2020 Speedy Bus. All Rights Reserved</font></p>
         
-
-            <h1>To be continued....................</h1>
         </div>
         <?php
             include("../webpage/footer.html");
