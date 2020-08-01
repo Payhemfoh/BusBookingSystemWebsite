@@ -3,7 +3,7 @@
     if($db = mysqli_connect("localhost","root","")){
         while(!mysqli_select_db($db,"bus_system")){
             $query = "CREATE DATABASE bus_system";
-            mysqli_query($query);
+            mysqli_query($db,$query);
         }
 
         //check the required table one by one
