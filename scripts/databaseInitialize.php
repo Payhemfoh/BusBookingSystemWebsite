@@ -73,6 +73,7 @@
         if(mysqli_num_rows(mysqli_query($db,$check))==0){
             $create = "CREATE TABLE bus_schedule(
                 busId INT UNSIGNED PRIMARY KEY AUTO_INCREMENT NOT NULL,
+                busNo VARCHAR(10) NOT NULL,
                 dayTravel VARCHAR(15) NOT NULL,
                 timeArrived TIME NOT NULL,
                 stationId INT UNSIGNED NOT NULL
