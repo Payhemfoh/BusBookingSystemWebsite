@@ -138,7 +138,7 @@
 					$ticketData = mysqli_fetch_array(mysqli_query($db,$query));
 
 					echo "
-						<form action=\"paymentMethod.php\" method=\"post\">
+						<form action=\"paymentForm.php\" method=\"post\">
 						<div id=\"content\">
 						<h2>Purchase Method</h2>
 							<fieldset>
