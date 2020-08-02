@@ -25,30 +25,42 @@
             if(mysqli_select_db($db,'bus_system')){
 
                 if(isset($_POST['submitted'])){
-                    $type = $_POST['form_type'];
-                    $state = $_POST['state'];
-                    $station = $_POST['station'];
-                    $month = $_POST['month'];
-                    $day = $_POST['day'];
-                    $area = "";
-                    $query = "SELECT stationArea FROM station_list WHERE stationName = '$station'";
-                        
-                    $data = mysqli_query($db,$query);
-                    if(!empty($data) && $row = mysqli_fetch_array($data)){
-                        $area = $row['stationArea'];
-                    }
+                    if(emptu($uname)){
+                        echo "<p>Please login before buy the ticket</p>";
+                        returnToLogin();
+                        $submitted = false;
+                    }else{
+                        $type = $_POST['form_type'];
+                        $state = $_POST['state'];
+                        $station = $_POST['station'];
+                        $month = $_POST['month'];
+                        $day = $_POST['day'];
+                        $area = "";
+                        $query = "SELECT stationArea FROM station_list WHERE stationName = '$station'";
 
-                    $submitted = true;
+                        $data = mysqli_query($db,$query);
+                        if(!empty($data) && $row = mysqli_fetch_array($data)){
+                            $area = $row['stationArea'];
+                        }
+
+                        $submitted = true;
+                    }
                 }
                 
                 else if(isset($_GET['formSelected'])){
-                    $type = $_GET['formSelected'];
-                    $state = $_GET['states'];
-                    $area = $_GET['area'];
-                    $station = $_GET['station'];
-                    $month = $_GET['month'];
-                    $day = $_GET['day'];
-                    $submitted = true;
+                    if(emptu($uname)){
+                        echo "<p>Please login before buy the ticket</p>";
+                        returnToLogin();
+                        $submitted = false;
+                    }else{
+                        $type = $_GET['formSelected'];
+                        $state = $_GET['states'];
+                        $area = $_GET['area'];
+                        $station = $_GET['station'];
+                        $month = $_GET['month'];
+                        $day = $_GET['day'];
+                        $submitted = true;
+                    }
                 }
                 else{
                     $submitted = false;
