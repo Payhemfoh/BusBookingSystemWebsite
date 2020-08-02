@@ -62,7 +62,7 @@
 			if(!checkEmpty($ticket_type,"Ticket Type"))
 				$isValid = false;
 			
-			if($type=="oneway_ticket"||$type=="roundtrip_ticket"){
+			if($ticket_type=="oneway_ticket"||$ticket_type=="roundtrip_ticket"){
                                 $busId=$_POST['busId'];
 				if(!checkEmpty($busId,"Bus"))
 				        $isValid = false;
@@ -82,19 +82,27 @@
 
 						$search = "SELECT userId FROM user WHERE username = $uname";
 						$data = mysqli_query($login,$search);
-						$row = mysqli_fetch_array($data);
-						$userId = $row['userId'];
+						if(!empty($data){
+							$row = mysqli_fetch_array($data);
+							$userId = $row['userId'];
+						}else{
+							$userId = 0;	
+						}
 
 						$search = "SELECT ticketId FROM tickets WHERE ticketType = $ticket_type";
 						$data = mysqli_query($login,$search);
-						$row = mysqli_fetch_array($data);
-						$ticketId = $row['ticketId'];
+						   if(!empty($data)){
+							$row = mysqli_fetch_array($data);
+							$ticketId = $row['ticketId'];
+						   }else{
+							$ticketId = 0;	   
+						   }
 
 
 						$querySQL = "INSERT INTO payment_record(paymentId,userId,firstName,lastName,paymentMethod,
 										cardNo,busId,travelDate,ticketId,numPax,totalPrice)
 										VALUES(0,$userId,$first_name,$last_name,$payment_method,$card_no,
-										$busId,$ticketId,$travel_date,$total_pax,$total_pay)";
+										$busId,$travel_date,$ticketId,$total_pax,$total_pay)";
 					
 						//if all success insert
 						if(mysqli_query($login,$querySQL)){
@@ -115,7 +123,7 @@
 						returnToHomepage();
 					}
 
-					mysqli_close($db);
+					mysqli_close($login);
 
 				}else{
 					die('Could not connect: '.mysqli.error($login));
