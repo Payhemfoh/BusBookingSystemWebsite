@@ -202,7 +202,7 @@
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
+								<td><input type=\"text\" name=\"numPax\" value=\"$total_pax\" readonly></td>
 							</tr>
 							
 							<tr>
