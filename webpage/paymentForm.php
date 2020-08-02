@@ -82,7 +82,7 @@
 
 						$search = "SELECT userId FROM user WHERE username = $uname";
 						$data = mysqli_query($login,$search);
-						if(!empty($data){
+						if(!empty($data)){
 							$row = mysqli_fetch_array($data);
 							$userId = $row['userId'];
 						}else{
@@ -186,7 +186,7 @@
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
+								<td><input type=\"text\" name=\"numPax\" value=\"$total_pax\" readonly></td>
 							</tr>
 							
 							<tr>
@@ -247,7 +247,7 @@
 							
 							<tr>
 								<td><b>No.of Pax</b></td>
-								<td><input type=\"text\" name=\"departure\" value=\"$total_pax\" readonly></td>
+								<td><input type=\"text\" name=\"numPax\" value=\"$total_pax\" readonly></td>
 							</tr>";
 							
 						printf("<tr>
