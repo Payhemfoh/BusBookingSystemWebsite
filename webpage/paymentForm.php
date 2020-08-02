@@ -33,10 +33,10 @@
 			/*
 			validations
 			*/
-			if(!checkAlphabet($first_name,"First Name"))
+			if(!validateAlphabet($first_name,"First Name"))
 				$isValid = false;
 			
-			if(!checkAlphabet($last_name,"Last Name"))
+			if(!validateAlphabet($last_name,"Last Name"))
 				$isValid = false;
 
 			if(!checkEmpty($payment_method,"Payment Method"))
