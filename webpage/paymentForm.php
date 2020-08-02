@@ -101,8 +101,8 @@
 
 						$querySQL = "INSERT INTO payment_record(paymentId,userId,firstName,lastName,paymentMethod,
 										cardNo,busId,travelDate,ticketId,numPax,totalPrice)
-										VALUES(0,$userId,$first_name,$last_name,$payment_method,$card_no,
-										$busId,$travel_date,$ticketId,$total_pax,$total_pay)";
+										VALUES(0,$userId,\"$first_name\",\"$last_name\",\"$payment_method\",\"$card_no\",
+										$busId,\"$travel_date\",$ticketId,$total_pax,$total_pay)";
 					
 						//if all success insert
 						if(mysqli_query($login,$querySQL)){
